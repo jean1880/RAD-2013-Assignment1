@@ -19,14 +19,13 @@ using System.Windows.Forms;
  * @author      Jean-Luc Desroches
  * @version     09/10/13
  */
-
 namespace Assignment1
 {
     public partial class employeeEarnings : Form
     {
         // initialize the percent that the employee earns from sales and total hours of the store
-        private const double PERCENT_SHARED = 0.02;
-        private const int STORE_HOURS       = 160;
+        private const double PERCENT_SHARED = 0.02; // this is the percent, in decimal format, that the employee earns from the sale
+        private const int STORE_HOURS       = 160; // this is the total number of hours the store was open during the sale
 
         // Initialise error messages for english
         private const string ENG_TOTALHOURS_ERROR = "Error, total hours must be a numeric value, between 0 and 160";
@@ -35,6 +34,9 @@ namespace Assignment1
         // Initialise error messages for french
         private const string FR_TOTALHOURS_ERROR = "Erreur, le total des heures doit être une valeur numérique entre 0 et 160";
         private const string FR_TOTALSALES_ERROR = "Erreur, le total des heures doit être une valeur numérique, et supérieur à 0";
+
+        // declare variables            
+        private double hoursWorked, monthlySales, saleBonus;
         
         public employeeEarnings()
         {
@@ -43,6 +45,7 @@ namespace Assignment1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // set focus on the first name box
             firstName.Focus();
         }
         
@@ -89,36 +92,49 @@ namespace Assignment1
                 calculateButton.PerformClick();
             }
         }
-
+        
         private void calculateButton_Click(object sender, EventArgs e)
         {
-            // Calculate the employees sales bonus from the totalSales and totalHours text fields
-           
-            double hoursWorked, monthlySales;
-
-            /*
-             * Try and convert the text field to a double format, triming whitespace from the string, if it fails, or if the value is less than 0 
-             * or greater than the total store hours, output error message in selected language and clear the field
-             */
-            if (!double.TryParse(totalHours.Text.Trim(), out hoursWorked) || (hoursWorked < 0 || hoursWorked > STORE_HOURS))
+            // check data in text fields, if validation fails, output error and exit function
+            if (!validateData(totalHours.Text))
             {
-                MessageBox.Show(englishButton.Checked? ENG_TOTALHOURS_ERROR:FR_TOTALHOURS_ERROR);
-                totalHours.Clear();
+                // set error text to appropriate language, based on selected language
+                errorBox.Text = (englishButton.Checked ? ENG_TOTALHOURS_ERROR : FR_TOTALHOURS_ERROR);
                 return;
             }
-
-            /*
-             * Try and convert the text field to a double format, triming whitespace from the string, if it fails, or if the value is less than 0 
-             * output error message in selected language and clear the field
-             */
-            if (!double.TryParse(totalSales.Text.Trim(), out monthlySales) || (monthlySales < 0))
+            else
             {
-                MessageBox.Show(englishButton.Checked? ENG_TOTALSALES_ERROR:FR_TOTALSALES_ERROR);
-                totalSales.Clear();
+                hoursWorked = double.Parse(totalHours.Text.Trim());
+                if (hoursWorked > 160 || hoursWorked < 0)
+                {
+                    // set error text to appropriate language, based on selected language
+                    errorBox.Text = (englishButton.Checked ? ENG_TOTALHOURS_ERROR : FR_TOTALHOURS_ERROR);
+                    return;
+                }
+            }// end of total sales checks
+
+            if (!validateData(totalSales.Text))
+            {
+                // set error text to appropriate language, based on selected language
+                errorBox.Text = (englishButton.Checked ? ENG_TOTALSALES_ERROR : FR_TOTALSALES_ERROR);
                 return;
             }
+            else
+            {
+                monthlySales = double.Parse(totalSales.Text.Trim());
+                if(monthlySales < 0)
+                {
+                    // set error text to appropriate language, based on selected language
+                    errorBox.Text = (englishButton.Checked ? ENG_TOTALSALES_ERROR : FR_TOTALSALES_ERROR);
+                    return;
+                }
+            }
+            
+            // clearErrorBox out errors
+            clearErrorBox();
 
-            double saleBonus = (hoursWorked / STORE_HOURS) * (monthlySales * PERCENT_SHARED);
+            // calculate the sales bonus with provided data
+            saleBonus = (hoursWorked / STORE_HOURS) * (monthlySales * PERCENT_SHARED);
 
             // Output results, format the decimal appropriately for the specified language
             if (englishButton.Checked)
@@ -128,7 +144,7 @@ namespace Assignment1
             else
             {
                 salesBonus.Text = "$" + saleBonus.ToString("N", System.Globalization.CultureInfo.CreateSpecificCulture("fr-CA"));
-            }
+            }// end of if
         }
 
         private void nextButton_Click(object sender, EventArgs e)
@@ -139,12 +155,62 @@ namespace Assignment1
             employeeID.Clear();
             totalHours.Clear();
             salesBonus.Clear();
+
+            // clearErrorBox out errors
+            clearErrorBox();
         }
 
         private void printButton_Click(object sender, EventArgs e)
         {
             // print with print preview the form
             printForm.Print();
+        }
+
+        private void clearErrorBox()
+        {
+            // Clear and hide the error box
+            errorBox.Clear();
+            errorBox.Visible = false;
+        }
+
+        private bool validateData(string data)
+        {
+            double tempVar;
+            /*
+             * Try and convert the text field to a double format, triming whitespace from the string, if it fails, or if the value is less than 0 
+             * or greater than the total store hours, output error message in selected language and clear the field
+             */
+            if (!double.TryParse(data.Trim(), out tempVar))
+            {
+                return false; // exit click function
+            }// end of if
+            
+            return true;
+        }
+
+        private void convertSalesToCurrency()
+        {
+            // check input data
+            if (!validateData(totalSales.Text))
+            {                
+                errorBox.Text = englishButton.Checked ? ENG_TOTALHOURS_ERROR : FR_TOTALHOURS_ERROR;
+                errorBox.Visible = true;
+                totalSales.Clear();
+                return;
+            }
+
+            // get the data in the text field of total store sales
+            double tempSales = double.Parse(totalSales.Text.Trim());
+
+            // Output results, format the decimal appropriately for the specified language
+            if (englishButton.Checked)
+            {                
+                totalSales.Text = "$" + tempSales.ToString("N", System.Globalization.CultureInfo.CreateSpecificCulture("en-CA"));
+            }
+            else
+            {
+                totalSales.Text = "$" + tempSales.ToString("N", System.Globalization.CultureInfo.CreateSpecificCulture("fr-CA"));
+            }// end of if
         }
     }
 }
