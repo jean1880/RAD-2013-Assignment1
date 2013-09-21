@@ -59,7 +59,7 @@
             // firstName
             // 
             this.firstName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.firstName.Location = new System.Drawing.Point(342, 33);
+            this.firstName.Location = new System.Drawing.Point(383, 35);
             this.firstName.Name = "firstName";
             this.firstName.Size = new System.Drawing.Size(84, 20);
             this.firstName.TabIndex = 0;
@@ -67,7 +67,7 @@
             // totalHours
             // 
             this.totalHours.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.totalHours.Location = new System.Drawing.Point(342, 85);
+            this.totalHours.Location = new System.Drawing.Point(383, 85);
             this.totalHours.Name = "totalHours";
             this.totalHours.Size = new System.Drawing.Size(174, 20);
             this.totalHours.TabIndex = 3;
@@ -75,7 +75,7 @@
             // employeeID
             // 
             this.employeeID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.employeeID.Location = new System.Drawing.Point(342, 59);
+            this.employeeID.Location = new System.Drawing.Point(383, 59);
             this.employeeID.Name = "employeeID";
             this.employeeID.Size = new System.Drawing.Size(174, 20);
             this.employeeID.TabIndex = 2;
@@ -83,15 +83,16 @@
             // totalSales
             // 
             this.totalSales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.totalSales.Location = new System.Drawing.Point(342, 111);
+            this.totalSales.Location = new System.Drawing.Point(383, 111);
             this.totalSales.Name = "totalSales";
             this.totalSales.Size = new System.Drawing.Size(174, 20);
             this.totalSales.TabIndex = 4;
+            this.totalSales.Leave += new System.EventHandler(this.totalSales_Leave);
             // 
             // lastName
             // 
             this.lastName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lastName.Location = new System.Drawing.Point(432, 33);
+            this.lastName.Location = new System.Drawing.Point(470, 35);
             this.lastName.Name = "lastName";
             this.lastName.Size = new System.Drawing.Size(84, 20);
             this.lastName.TabIndex = 1;
@@ -101,7 +102,7 @@
             this.firstNameLabel.AutoSize = true;
             this.firstNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.firstNameLabel.ForeColor = System.Drawing.Color.White;
-            this.firstNameLabel.Location = new System.Drawing.Point(342, 14);
+            this.firstNameLabel.Location = new System.Drawing.Point(385, 14);
             this.firstNameLabel.Name = "firstNameLabel";
             this.firstNameLabel.Size = new System.Drawing.Size(73, 16);
             this.firstNameLabel.TabIndex = 5;
@@ -112,7 +113,7 @@
             this.lastNameLabel.AutoSize = true;
             this.lastNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lastNameLabel.ForeColor = System.Drawing.Color.White;
-            this.lastNameLabel.Location = new System.Drawing.Point(432, 13);
+            this.lastNameLabel.Location = new System.Drawing.Point(479, 14);
             this.lastNameLabel.Name = "lastNameLabel";
             this.lastNameLabel.Size = new System.Drawing.Size(73, 16);
             this.lastNameLabel.TabIndex = 6;
@@ -124,13 +125,14 @@
             this.employNameLabel.AutoSize = true;
             this.employNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.employNameLabel.ForeColor = System.Drawing.Color.White;
-            this.employNameLabel.Location = new System.Drawing.Point(158, 33);
+            this.employNameLabel.Location = new System.Drawing.Point(166, 33);
             this.employNameLabel.Name = "employNameLabel";
             this.employNameLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.employNameLabel.Size = new System.Drawing.Size(118, 18);
             this.employNameLabel.TabIndex = 7;
             this.employNameLabel.Text = "Employee Name";
             this.employNameLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.employNameLabel.Leave += new System.EventHandler(this.printButton_Click);
             // 
             // employeeIDLabel
             // 
@@ -138,7 +140,7 @@
             this.employeeIDLabel.AutoSize = true;
             this.employeeIDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.employeeIDLabel.ForeColor = System.Drawing.Color.White;
-            this.employeeIDLabel.Location = new System.Drawing.Point(158, 59);
+            this.employeeIDLabel.Location = new System.Drawing.Point(163, 59);
             this.employeeIDLabel.Name = "employeeIDLabel";
             this.employeeIDLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.employeeIDLabel.Size = new System.Drawing.Size(104, 18);
@@ -152,7 +154,7 @@
             this.hoursWorkedLabel.AutoSize = true;
             this.hoursWorkedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hoursWorkedLabel.ForeColor = System.Drawing.Color.White;
-            this.hoursWorkedLabel.Location = new System.Drawing.Point(158, 85);
+            this.hoursWorkedLabel.Location = new System.Drawing.Point(166, 85);
             this.hoursWorkedLabel.Name = "hoursWorkedLabel";
             this.hoursWorkedLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.hoursWorkedLabel.Size = new System.Drawing.Size(143, 18);
@@ -167,7 +169,7 @@
             this.totalSalesLabel.AutoSize = true;
             this.totalSalesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalSalesLabel.ForeColor = System.Drawing.Color.White;
-            this.totalSalesLabel.Location = new System.Drawing.Point(158, 111);
+            this.totalSalesLabel.Location = new System.Drawing.Point(166, 111);
             this.totalSalesLabel.Name = "totalSalesLabel";
             this.totalSalesLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.totalSalesLabel.Size = new System.Drawing.Size(133, 18);
@@ -221,7 +223,7 @@
             this.calculateButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
             this.calculateButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
             this.calculateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.calculateButton.Location = new System.Drawing.Point(342, 180);
+            this.calculateButton.Location = new System.Drawing.Point(383, 180);
             this.calculateButton.Name = "calculateButton";
             this.calculateButton.Size = new System.Drawing.Size(75, 23);
             this.calculateButton.TabIndex = 5;
@@ -250,7 +252,7 @@
             this.nextButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
             this.nextButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
             this.nextButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.nextButton.Location = new System.Drawing.Point(441, 180);
+            this.nextButton.Location = new System.Drawing.Point(482, 180);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(75, 23);
             this.nextButton.TabIndex = 6;
@@ -263,7 +265,7 @@
             this.salesBonus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.salesBonus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.salesBonus.Enabled = false;
-            this.salesBonus.Location = new System.Drawing.Point(342, 138);
+            this.salesBonus.Location = new System.Drawing.Point(383, 138);
             this.salesBonus.Name = "salesBonus";
             this.salesBonus.ReadOnly = true;
             this.salesBonus.Size = new System.Drawing.Size(174, 20);
@@ -275,7 +277,7 @@
             this.salesBonusLabel.AutoSize = true;
             this.salesBonusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.salesBonusLabel.ForeColor = System.Drawing.Color.White;
-            this.salesBonusLabel.Location = new System.Drawing.Point(158, 138);
+            this.salesBonusLabel.Location = new System.Drawing.Point(166, 138);
             this.salesBonusLabel.Name = "salesBonusLabel";
             this.salesBonusLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.salesBonusLabel.Size = new System.Drawing.Size(162, 18);
@@ -312,7 +314,7 @@
             this.errorBox.Name = "errorBox";
             this.errorBox.ReadOnly = true;
             this.errorBox.ShortcutsEnabled = false;
-            this.errorBox.Size = new System.Drawing.Size(534, 26);
+            this.errorBox.Size = new System.Drawing.Size(572, 26);
             this.errorBox.TabIndex = 18;
             this.errorBox.TabStop = false;
             this.errorBox.Text = "test";
@@ -324,7 +326,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
-            this.ClientSize = new System.Drawing.Size(528, 235);
+            this.ClientSize = new System.Drawing.Size(566, 235);
             this.Controls.Add(this.errorBox);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.salesBonusLabel);

@@ -99,7 +99,7 @@ namespace Assignment1
             if (!validateData(totalHours.Text))
             {
                 // set error text to appropriate language, based on selected language
-                errorBox.Text = (englishButton.Checked ? ENG_TOTALHOURS_ERROR : FR_TOTALHOURS_ERROR);
+                Error(englishButton.Checked ? ENG_TOTALHOURS_ERROR : FR_TOTALHOURS_ERROR);
                 return;
             }
             else
@@ -108,7 +108,7 @@ namespace Assignment1
                 if (hoursWorked > 160 || hoursWorked < 0)
                 {
                     // set error text to appropriate language, based on selected language
-                    errorBox.Text = (englishButton.Checked ? ENG_TOTALHOURS_ERROR : FR_TOTALHOURS_ERROR);
+                    Error(englishButton.Checked ? ENG_TOTALHOURS_ERROR : FR_TOTALHOURS_ERROR);
                     return;
                 }
             }// end of total sales checks
@@ -116,7 +116,7 @@ namespace Assignment1
             if (!validateData(totalSales.Text))
             {
                 // set error text to appropriate language, based on selected language
-                errorBox.Text = (englishButton.Checked ? ENG_TOTALSALES_ERROR : FR_TOTALSALES_ERROR);
+                Error(englishButton.Checked ? ENG_TOTALSALES_ERROR : FR_TOTALSALES_ERROR);
                 return;
             }
             else
@@ -125,7 +125,7 @@ namespace Assignment1
                 if(monthlySales < 0)
                 {
                     // set error text to appropriate language, based on selected language
-                    errorBox.Text = (englishButton.Checked ? ENG_TOTALSALES_ERROR : FR_TOTALSALES_ERROR);
+                    Error(englishButton.Checked ? ENG_TOTALSALES_ERROR : FR_TOTALSALES_ERROR);
                     return;
                 }
             }
@@ -139,11 +139,11 @@ namespace Assignment1
             // Output results, format the decimal appropriately for the specified language
             if (englishButton.Checked)
             {
-                salesBonus.Text = "$" + saleBonus.ToString("N", System.Globalization.CultureInfo.CreateSpecificCulture("en-CA"));
+                salesBonus.Text = saleBonus.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-CA"));
             }
             else
             {
-                salesBonus.Text = "$" + saleBonus.ToString("N", System.Globalization.CultureInfo.CreateSpecificCulture("fr-CA"));
+                salesBonus.Text = saleBonus.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("fr-CA"));
             }// end of if
         }
 
@@ -188,7 +188,15 @@ namespace Assignment1
             return true;
         }
 
-        private void convertSalesToCurrency()
+        private void totalSales_Leave(object sender, EventArgs e)
+        {
+            if (!convertSalesToCurrency())
+            {
+                Error("Invalid data provided to total sales");
+            }
+        }
+
+        private bool convertSalesToCurrency()
         {
             // check input data
             if (!validateData(totalSales.Text))
@@ -196,7 +204,7 @@ namespace Assignment1
                 errorBox.Text = englishButton.Checked ? ENG_TOTALHOURS_ERROR : FR_TOTALHOURS_ERROR;
                 errorBox.Visible = true;
                 totalSales.Clear();
-                return;
+                return false;
             }
 
             // get the data in the text field of total store sales
@@ -205,12 +213,18 @@ namespace Assignment1
             // Output results, format the decimal appropriately for the specified language
             if (englishButton.Checked)
             {                
-                totalSales.Text = "$" + tempSales.ToString("N", System.Globalization.CultureInfo.CreateSpecificCulture("en-CA"));
+                totalSales.Text = tempSales.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-CA"));
             }
             else
             {
-                totalSales.Text = "$" + tempSales.ToString("N", System.Globalization.CultureInfo.CreateSpecificCulture("fr-CA"));
+                totalSales.Text = tempSales.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("fr-CA"));
             }// end of if
+            return true;
+        }
+
+        private void Error(string messaage)
+        {
+            errorBox.Text = (messaage);
         }
     }
 }
