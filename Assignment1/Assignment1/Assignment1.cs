@@ -43,7 +43,7 @@ namespace Assignment1
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form_Load(object sender, EventArgs e)
         {
             // set focus on the first name box
             firstName.Focus();
@@ -65,9 +65,10 @@ namespace Assignment1
             languageSelection.Text  = "Languages";
 
             // Convert decimal formats in salesBonus container if not empty
-            if (salesBonus.Text != "")
+            if (totalSales.Text != "")
             {
-                calculateButton.PerformClick();
+                totalSales.Clear();
+                salesBonus.Clear();
             }
         }
 
@@ -87,9 +88,10 @@ namespace Assignment1
             languageSelection.Text  = "Langues";
             
             // Convert decimal formats in salesBonus container if not empty
-            if (salesBonus.Text != "")
+            if (totalSales.Text != "")
             {
-                calculateButton.PerformClick();
+                totalSales.Clear();
+                salesBonus.Clear();
             }
         }
         
@@ -112,8 +114,12 @@ namespace Assignment1
                     return;
                 }
             }// end of total sales checks
+            convertFromCurrencyToNumeric(sender,e);
+            string sales = totalSales.Text.Trim();
+            convertSalesToCurrency();
 
-            if (!validateData(totalSales.Text))
+
+            if (!validateData(sales))
             {
                 // set error text to appropriate language, based on selected language
                 Error(englishButton.Checked ? ENG_TOTALSALES_ERROR : FR_TOTALSALES_ERROR);
@@ -121,7 +127,7 @@ namespace Assignment1
             }
             else
             {
-                monthlySales = double.Parse(totalSales.Text.Trim());
+                monthlySales = double.Parse(sales);
                 if(monthlySales < 0)
                 {
                     // set error text to appropriate language, based on selected language
@@ -150,11 +156,7 @@ namespace Assignment1
         private void nextButton_Click(object sender, EventArgs e)
         {
             // Clear all input and output boxes and set focus on the firstName field
-            firstName.Clear();
-            lastName.Clear();
-            employeeID.Clear();
-            totalHours.Clear();
-            salesBonus.Clear();
+            clearFields();
 
             // clearErrorBox out errors
             clearErrorBox();
@@ -190,41 +192,82 @@ namespace Assignment1
 
         private void totalSales_Leave(object sender, EventArgs e)
         {
+            // try and convert the sales to currency format 
             if (!convertSalesToCurrency())
             {
                 Error("Invalid data provided to total sales");
             }
         }
 
+        private void totalHours_Leave(object sender, EventArgs e)
+        {
+            // Check if data entered into the field is correct
+            if(totalHours.Text.Trim() != "")
+            {
+                if (!validateData(totalHours.Text) || (double.Parse(totalHours.Text.Trim()) > 160 || double.Parse(totalHours.Text.Trim()) < 0))
+                {
+                    Error(englishButton.Checked ? ENG_TOTALHOURS_ERROR : FR_TOTALHOURS_ERROR);
+                    totalHours.Clear();
+                }
+            }
+        }
+
+        private void convertFromCurrencyToNumeric(object sender, EventArgs e)
+        {
+            // convert total sales from currency format to numeric for editing
+            if (totalSales.Text.Trim() != "")
+            {
+                string tempVar = totalSales.Text.Trim();
+
+                double data = double.Parse(tempVar, System.Globalization.NumberStyles.Currency, englishButton.Checked ? System.Globalization.CultureInfo.CreateSpecificCulture("en-CA") : System.Globalization.CultureInfo.CreateSpecificCulture("fr-CA"));
+                totalSales.Text = data.ToString();   
+            }
+        }
+
         private bool convertSalesToCurrency()
         {
-            // check input data
-            if (!validateData(totalSales.Text))
-            {                
-                errorBox.Text = englishButton.Checked ? ENG_TOTALHOURS_ERROR : FR_TOTALHOURS_ERROR;
-                errorBox.Visible = true;
-                totalSales.Clear();
-                return false;
-            }
-
-            // get the data in the text field of total store sales
-            double tempSales = double.Parse(totalSales.Text.Trim());
-
-            // Output results, format the decimal appropriately for the specified language
-            if (englishButton.Checked)
-            {                
-                totalSales.Text = tempSales.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-CA"));
-            }
-            else
+            if (totalSales.Text.Trim() != "")
             {
-                totalSales.Text = tempSales.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("fr-CA"));
-            }// end of if
+                // check input data
+                if (!validateData(totalSales.Text))
+                {
+                    Error(englishButton.Checked ? ENG_TOTALSALES_ERROR : FR_TOTALSALES_ERROR);
+                    totalSales.Clear();
+                    return false;
+                }
+
+                // get the data in the text field of total store sales
+                double tempSales = double.Parse(totalSales.Text.Trim());
+
+                // Output results, format the decimal appropriately for the specified language
+                if (englishButton.Checked)
+                {
+                    totalSales.Text = tempSales.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-CA"));
+                }
+                else
+                {
+                    totalSales.Text = tempSales.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("fr-CA"));
+                }// end of if
+                return true;
+            }
             return true;
         }
 
         private void Error(string messaage)
         {
+            // out put error to user
             errorBox.Text = (messaage);
+            errorBox.Visible = true;
+        }
+
+        private void clearFields()
+        {
+            // clear fields
+            firstName.Clear();
+            lastName.Clear();
+            employeeID.Clear();
+            totalHours.Clear();
+            salesBonus.Clear();
         }
     }
 }

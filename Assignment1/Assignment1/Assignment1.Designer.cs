@@ -71,6 +71,7 @@
             this.totalHours.Name = "totalHours";
             this.totalHours.Size = new System.Drawing.Size(174, 20);
             this.totalHours.TabIndex = 3;
+            this.totalHours.Leave += new System.EventHandler(this.totalHours_Leave);
             // 
             // employeeID
             // 
@@ -87,6 +88,7 @@
             this.totalSales.Name = "totalSales";
             this.totalSales.Size = new System.Drawing.Size(174, 20);
             this.totalSales.TabIndex = 4;
+            this.totalSales.Enter += new System.EventHandler(this.convertFromCurrencyToNumeric);
             this.totalSales.Leave += new System.EventHandler(this.totalSales_Leave);
             // 
             // lastName
@@ -247,8 +249,7 @@
             // 
             // nextButton
             // 
-            this.nextButton.BackColor = System.Drawing.Color.DarkGray;
-            this.nextButton.Enabled = false;
+            this.nextButton.BackColor = System.Drawing.Color.WhiteSmoke;
             this.nextButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
             this.nextButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
             this.nextButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -310,7 +311,7 @@
             this.errorBox.Enabled = false;
             this.errorBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.errorBox.ForeColor = System.Drawing.Color.Red;
-            this.errorBox.Location = new System.Drawing.Point(-4, 210);
+            this.errorBox.Location = new System.Drawing.Point(-4, 207);
             this.errorBox.Name = "errorBox";
             this.errorBox.ReadOnly = true;
             this.errorBox.ShortcutsEnabled = false;
@@ -326,7 +327,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
-            this.ClientSize = new System.Drawing.Size(566, 235);
+            this.ClientSize = new System.Drawing.Size(566, 232);
             this.Controls.Add(this.errorBox);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.salesBonusLabel);
@@ -352,7 +353,7 @@
             this.Name = "employeeEarnings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Employee Earnings";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.Form_Load);
             this.languageSelection.ResumeLayout(false);
             this.languageSelection.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
