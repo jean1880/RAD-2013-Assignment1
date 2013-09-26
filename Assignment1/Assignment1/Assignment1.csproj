@@ -67,6 +67,18 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GithubSharp.Core">
+      <HintPath>..\packages\GithubSharp.Core.0.0.5.1\lib\GithubSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GithubSharp.Plugins.CacheProviders.ApplicationCacher">
+      <HintPath>..\packages\GithubSharp.Plugins.All.0.0.5.1\lib\GithubSharp.Plugins.CacheProviders.ApplicationCacher.dll</HintPath>
+    </Reference>
+    <Reference Include="GithubSharp.Plugins.CacheProviders.WebCache">
+      <HintPath>..\packages\GithubSharp.Plugins.All.0.0.5.1\lib\GithubSharp.Plugins.CacheProviders.WebCache.dll</HintPath>
+    </Reference>
+    <Reference Include="GithubSharp.Plugins.LogProviders.SimpleLogProvider">
+      <HintPath>..\packages\GithubSharp.Plugins.All.0.0.5.1\lib\GithubSharp.Plugins.LogProviders.SimpleLogProvider.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System" />
@@ -102,6 +114,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\Program.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
